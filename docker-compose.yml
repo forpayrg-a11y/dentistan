@@ -1,0 +1,15 @@
+version: '3.8'
+services:
+  next-app:
+    build: .
+    container_name: dent_frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    environment:
+      - MONGODB_URI=${MONGODB_URI}
+      - GCS_PROJECT_ID=${GCS_PROJECT_ID}
+      - GCS_CLIENT_EMAIL=${GCS_CLIENT_EMAIL}
+      - GCS_PRIVATE_KEY=${GCS_PRIVATE_KEY}
