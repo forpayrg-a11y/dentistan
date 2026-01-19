@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+# The Next.js Runtime on Netlify handles redirects and functions automatically.
+# No manual redirects to index.html are needed for Next.js projects.

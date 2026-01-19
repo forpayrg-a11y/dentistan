@@ -30,29 +30,24 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              href="/treatments"
+              href="#treatments"
               className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
             >
               Treatments
             </Link>
             <Link
-              href="/gallery"
+              href="#gallery"
               className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
             >
               Before & After
             </Link>
-            <Link
-              href="/about"
-              className="text-sm font-medium text-gray-700 hover:text-blue-600 transition-colors"
-            >
-              About Us
-            </Link>
+
           </div>
 
           {/* CTA BUTTON (Aksiyon Butonu) */}
           <div className="hidden md:flex items-center gap-4">
             <Link
-              href="/contact"
+              href="#contact"
               className="rounded-full bg-blue-600 px-6 py-2 text-sm font-medium text-white hover:bg-blue-700 transition-all shadow-md"
             >
               Get a Free Quote
@@ -83,21 +78,21 @@ export default function Navbar() {
               Home
             </Link>
             <Link
-              href="/treatments"
+              href="#treatments"
               onClick={() => setIsOpen(false)}
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600"
             >
               Treatments
             </Link>
             <Link
-              href="/gallery"
+              href="#gallery"
               onClick={() => setIsOpen(false)}
               className="block rounded-md px-3 py-2 text-base font-medium text-gray-700 hover:bg-gray-50 hover:text-blue-600"
             >
               Before & After
             </Link>
             <Link
-              href="/contact"
+              href="#contact"
               onClick={() => setIsOpen(false)}
               className="mt-4 block w-full rounded-md bg-blue-600 px-3 py-3 text-center text-base font-medium text-white hover:bg-blue-700"
             >

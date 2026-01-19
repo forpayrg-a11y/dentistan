@@ -2,7 +2,7 @@ import PatientForm from "./PatientForm";
 
 export default function Hero() {
   return (
-    <section className="relative w-full bg-linear-to-br from-blue-50 to-white py-12 md:py-24 lg:py-32 overflow-hidden">
+    <section id="contact" className="relative w-full bg-linear-to-br from-blue-50 to-white py-12 md:py-24 lg:py-32 overflow-hidden">
       {/* Background Decor */}
       <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-blue-100 rounded-full blur-3xl opacity-50"></div>
 

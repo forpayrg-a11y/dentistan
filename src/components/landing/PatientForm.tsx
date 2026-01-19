@@ -180,7 +180,7 @@ export default function PatientForm() {
               <Loader2 className="animate-spin" /> Processing...
             </>
           ) : (
-            "Submit for Analysis"
+            "Submit free Dental Analysis"
           )}
         </button>
       </div>
