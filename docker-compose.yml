@@ -1,12 +1,13 @@
 version: '3'
 services:
   dentistan:
-    image: dentistan:latest # (veya build: . yazıyorsa kalsın)
+    build:
+      context: .
+      dockerfile: Dockerfile
     container_name: dentistan_app
     restart: always
     ports:
       - "3000:3000"
-    # 👇 İŞTE BU BÖLÜM ÇOK ÖNEMLİ, YOKSA EKLİYORUZ 👇
     environment:
       - MONGODB_URI=${MONGODB_URI}
       - GCS_BUCKET_NAME=${GCS_BUCKET_NAME}
