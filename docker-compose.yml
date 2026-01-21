@@ -1,14 +1,13 @@
-version: "3.9"
-
+version: '3'
 services:
-  web:
-    container_name: dentistan
-    build: .
+  dentistan:
+    # Build kısmında "context" belirtmek bazen hayat kurtarır
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dentistan_app
+    restart: always
     ports:
       - "3000:3000"
-    volumes:
-      - .:/app
-      - /app/node_modules
-
     environment:
       - NODE_ENV=development
