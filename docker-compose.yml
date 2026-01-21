@@ -1,13 +1,15 @@
 version: '3'
 services:
   dentistan:
-    # Build kısmında "context" belirtmek bazen hayat kurtarır
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: dentistan:latest # (veya build: . yazıyorsa kalsın)
     container_name: dentistan_app
     restart: always
     ports:
       - "3000:3000"
+    # 👇 İŞTE BU BÖLÜM ÇOK ÖNEMLİ, YOKSA EKLİYORUZ 👇
     environment:
-      - NODE_ENV=development
+      - MONGODB_URI=${MONGODB_URI}
+      - GCS_BUCKET_NAME=${GCS_BUCKET_NAME}
+      - GCS_PROJECT_ID=${GCS_PROJECT_ID}
+      - GCS_CLIENT_EMAIL=${GCS_CLIENT_EMAIL}
+      - GCS_PRIVATE_KEY=${GCS_PRIVATE_KEY}
