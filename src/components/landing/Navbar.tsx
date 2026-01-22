@@ -16,7 +16,7 @@ export default function Navbar() {
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center space-x-2">
               <span className="text-2xl font-bold text-blue-600">
-                DENTISTAN
+                DENTISTANss
               </span>
             </Link>
           </div>
@@ -41,7 +41,6 @@ export default function Navbar() {
             >
               Before & After
             </Link>
-
           </div>
 
           {/* CTA BUTTON (Aksiyon Butonu) */}
