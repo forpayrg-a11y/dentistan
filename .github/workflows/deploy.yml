@@ -1,0 +1,28 @@
+name: Deploy to Docker Hub
+
+on:
+  push:
+    branches: [ "main" ] # Kod 'main' dalına atılınca çalışır
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Kodu Çek
+        uses: actions/checkout@v3
+
+      - name: Docker Hub'a Giriş Yap
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build ve Push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          # DİKKAT: Aşağıdaki kısmı kendi Docker Hub bilgine göre değiştir!
+          # Örnek: ahmet123/dis-klinigi:latest
+          tags: BURAYA_KULLANICI_ADIN/BURAYA_REPO_ADIN:latest
