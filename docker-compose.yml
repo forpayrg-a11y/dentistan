@@ -1,9 +1,11 @@
-version: "3.9"
-
+version: '3'
 services:
-  web:
-    container_name: dentistan
-    build: .
+  dentistan:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: dentistan_app
+    restart: always
     ports:
       - "3000:3000"
     volumes:
@@ -11,9 +13,8 @@ services:
       - /app/node_modules
 
     environment:
-      - MONGODB_URI=${mongodb+srv://admins:12332122Rgg@dentistans.cyijbsj.mongodb.net/?appName=dentistans}
-      - GCS_BUCKET_NAME=${dentistan}
-      - GCS_PROJECT_ID=${gen-lang-client-0910714788}
-      - GCS_CLIENT_EMAIL=${dentistan-uploader@gen-lang-client-0910714788.iam.gserviceaccount.com}
-      - GCS_PRIVATE_KEY=${"-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDUC9ptNWzMLVMt\n095pM20seeETXixkxvl+KpfJbht5tCU2IbxPTkGiSVj6isOQUvo6HVsz57zFPDPO\nRN6vlodBFaQfP0Rl3QBBtH+UhfstvdqcON4HsD2Y4ZnpFGoEaJwMu1KxzQhRzQir\nlT+QLlCZSHeBAwQRVNXBn+huq0MFqlAD2U8lalddRa7MvTLn+4CjOhBrflrjp+x9\neu8evlFdh3KI9ivM5nxGsHt3Ap4mdCnbKiHyvKgmBwWWrwuSb6E6JSkpTXZfzMkK\nHEyDQR5XQ5JiE/9UWhMeFFQaPWo35CwanuVRr1e/6bidrre0lfdW+fDsJ3GoCPoj\n6+NF8nenAgMBAAECggEAGPnfG9HueLY1//CJV/bYuyO39ndh3z+Yj4XQzxxgXBtz\nQ/Gr+Ti3KQ2z+f7Hk4On5ER6Q54zcT/qvOGxIRl9NkCoTjiTg96zcwnMT+A1emkh\nthj0qLnXkjRbKUW1nxil7idPpuWxlIEEA8HWn32fvLj5FSxtGZAr2rH3x2FLdFUo\n59UXVHA+dGx2W90dHC/HuqrNe0emEIswYn/5fAxrv+iL3zeJlZUovVsjOIZM98Gx\nYAD8wGzGdVmD6Ib5zzUWF7HSbElm6iNhsImbiolHtH0yA1liSO1am+7lqEhJa79a\nIiiGLvhtA2jDnn5wkq4hXIWTi/ABBqEYJKS+E92xwQKBgQD2cdqQgSQQqPGbY9z4\nRNo68dZGEoZ2agJSNxhbHl/STk35BFNsmf23q7eRxx41kfDYypPsQSsaYx6sL3kl\nNZOnb/nkiurxxKdh9ak7zBlg4U4caraXY9FwAPcVRyks8bCdg+wiwxVSVKiX+Ouk\nFHOFgl0BkKQOMknoXt2PznYT9wKBgQDcRJHMGX0IW2XTU7aFdIRNG1GGAYMLzPpy\nwR9NDYyZqvNO2wj/GdXJrGBMJk0+e5L/pb59R6j7avV8BkFip0VChkZvo6FmfJqQ\nXCwXw3FVOXulTkBHS+DBwiFIZx9qCzYJgj9tm+Qb4x1X2izmLTBOPEuSVsZTH1zQ\nRP5RPFRt0QKBgQCLiHcJbjTvQdhZ9La90q4ExbxePErpbKgXyJ3/qTjzp+Y54Zsi\nWCXxAkaTQTv3dMP62ufZ0iQHcquBLffXe3g4SwwfvA++B2wF6MOC2dJcqfRB3qG3\nIYsJcWJ0J7BGhClNZc4i+HVwAgLa2NMCOZoWs3LZWf2pFAwIhv3HWEw+jQKBgQC9\nhY5BI6kuOJ3rb/r65x8yzQ+fEsvzqmHPvRU2kjLowWtp7RLXlB4b0WJmAwqxeVgo\n+S5m0vK1qPkhxqwZuzzfmXMfeZZU/V9sWLJjm/l2z+fwetzZu5LehC9pAbnI326W\nTehPYjOqPwcvYP0C69zFZCHN/zXTrYeJd+OueA9ZEQKBgQDXdH0IUPmxw9KAAl9Z\nXoQltszS8A4riTtCrBDB8k5tSWeqEgpHcOQSZhJfpDc6bznm50OgG2kWQB0Z+Ir3\nTQHU31WnfWMQBwSUIOLrJR9TqtzExzC1wmtyVTjpwXhUQa6tP3XapoB3VedtSviT\n8OWtdLWwqYCzeNoVJaO8XzMMTw==\n-----END PRIVATE KEY-----\n"}
-
+      - MONGODB_URI=${MONGODB_URI}
+      - GCS_BUCKET_NAME=${GCS_BUCKET_NAME}
+      - GCS_PROJECT_ID=${GCS_PROJECT_ID}
+      - GCS_CLIENT_EMAIL=${GCS_CLIENT_EMAIL}
+      - GCS_PRIVATE_KEY=${GCS_PRIVATE_KEY}
