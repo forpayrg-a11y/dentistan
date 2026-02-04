@@ -24,7 +24,7 @@ export default function Navbar() {
                 className="h-10 w-10 object-contain"
               />
               <span className="text-2xl font-bold text-blue-600">
-                DentTourist
+                DenTourist
               </span>
             </Link>
           </div>

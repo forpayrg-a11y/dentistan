@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://dentourist.com"),
   title: {
     default: "DenTourist | Premium Dental Care & Smile Design ",
-    template: "%s | DentTourist",
+    template: "%s | DenTourist",
   },
   description:
     "Experience world-class dental care in Istanbul with DentTourist. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns while enjoying a holiday in Turkey.",
@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     "Best Dentist Istanbul",
     "Dental Holiday Turkey",
   ],
-  authors: [{ name: "DentTourist Team" }],
-  creator: "DentTourist",
-  publisher: "DentTourist",
+  authors: [{ name: "DenTourist Team" }],
+  creator: "DenTourist",
+  publisher: "DenTourist",
   alternates: {
     canonical: "/",
   },
@@ -34,11 +34,11 @@ export const metadata: Metadata = {
     apple: "/logo.png",
   },
   openGraph: {
-    title: "DentTourist | Premium Dental Care & Smile Design ",
+    title: "DenTourist | Premium Dental Care & Smile Design ",
     description:
-      "Experience world-class dental care in Istanbul with DentTourist. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns.",
+      "Experience world-class dental care in Istanbul with DenTourist. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns.",
     url: "https://dentourist.com",
-    siteName: "DentTourist",
+    siteName: "DenTourist",
     images: [
       {
         url: "/og-image.jpg",
