@@ -3,7 +3,8 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Menu, X, Phone } from "lucide-react"; // İkonlar
+import Image from "next/image";
+import { Menu, X } from "lucide-react"; 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -15,8 +16,15 @@ export default function Navbar() {
           {/* LOGO */}
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center space-x-2">
+              <Image 
+                src="/logo.png" 
+                alt="DentTourist Logo" 
+                width={40} 
+                height={40} 
+                className="h-10 w-10 object-contain"
+              />
               <span className="text-2xl font-bold text-blue-600">
-                DENTISTANss
+                DentTourist
               </span>
             </Link>
           </div>

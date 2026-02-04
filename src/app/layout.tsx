@@ -1,10 +1,15 @@
 import type { Metadata } from "next";
+import JsonLd from "@/components/seo/JsonLd";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Dentistan | Premium Dental Care & Smile Design in Istanbul",
+  metadataBase: new URL("https://dentourist.com"),
+  title: {
+    default: "DenTourist | Premium Dental Care & Smile Design ",
+    template: "%s | DentTourist",
+  },
   description:
-    "Experience world-class dental care in Istanbul with Dentistan. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns while enjoying a holiday in Turkey.",
+    "Experience world-class dental care in Istanbul with DentTourist. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns while enjoying a holiday in Turkey.",
   keywords: [
     "Dental Tourism Turkey",
     "Dentist Istanbul",
@@ -12,23 +17,58 @@ export const metadata: Metadata = {
     "Dental Implants Turkey",
     "Zirconium Crowns",
     "Affordable Dentistry Turkey",
+    "Smile Design Istanbul",
+    "Best Dentist Istanbul",
+    "Dental Holiday Turkey",
   ],
+  authors: [{ name: "DentTourist Team" }],
+  creator: "DentTourist",
+  publisher: "DentTourist",
+  alternates: {
+    canonical: "/",
+  },
+  manifest: "/manifest.json",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
   openGraph: {
-    title: "Dentistan | Premium Dental Care & Smile Design in Istanbul",
+    title: "DentTourist | Premium Dental Care & Smile Design ",
     description:
-      "Experience world-class dental care in Istanbul with Dentistan. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns.",
-    siteName: "Dentistan",
+      "Experience world-class dental care in Istanbul with DentTourist. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns.",
+    url: "https://dentourist.com",
+    siteName: "DentTourist",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "DentTourist - Premium Dental Care in Istanbul",
+      },
+    ],
     locale: "en_US",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Dentistan | Premium Dental Care & Smile Design in Istanbul",
+    title: "DentTourist | Premium Dental Care & Smile Design ",
     description:
-      "Experience world-class dental care in Istanbul with Dentistan. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns.",
+      "Experience world-class dental care in Istanbul with DentTourist. Save up to 70% on Hollywood Smile, Dental Implants, and Zirconium Crowns.",
+    images: ["/og-image.jpg"],
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
-
 
 export default function RootLayout({
   children,
@@ -38,6 +78,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background text-foreground font-roboto">
+        <JsonLd />
         {children}
       </body>
     </html>
