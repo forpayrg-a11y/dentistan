@@ -4,7 +4,7 @@ import JsonLd from "@/components/seo/JsonLd";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://dentourist.com"),
+  metadataBase: new URL("https://www.dentourist.com"),
   title: {
     default: "DenTourist | Premium Dental Care & Smile Design ",
     template: "%s | DenTourist",
