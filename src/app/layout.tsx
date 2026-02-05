@@ -1,3 +1,4 @@
+import Script from "next/script";
 import type { Metadata } from "next";
 import JsonLd from "@/components/seo/JsonLd";
 import "./globals.css";
@@ -80,6 +81,7 @@ export default function RootLayout({
       <body className="bg-background text-foreground font-roboto">
         <JsonLd />
         {children}
+        <Script src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ad060c9430954510b5e2147329f59788"}'></Script>
       </body>
     </html>
   );

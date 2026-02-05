@@ -18,7 +18,7 @@ export default function Navbar() {
             <Link href="/" className="flex items-center space-x-2">
               <Image 
                 src="/logo.png" 
-                alt="DentTourist Logo" 
+                alt="DenTourist Logo" 
                 width={40} 
                 height={40} 
                 className="h-10 w-10 object-contain"
