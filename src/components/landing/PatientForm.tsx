@@ -1,23 +1,18 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Upload, X, CheckCircle, Loader2 } from "lucide-react";
-import { submitPatientForm } from "@/app/actions"; 
+import { submitPatientForm } from "@/app/actions";
 import PhoneInput from 'react-phone-number-input';
 import 'react-phone-number-input/style.css';
+import { Turnstile } from '@marsidev/react-turnstile';
+
 export default function PatientForm() {
   const [files, setFiles] = useState<File[]>([]);
   const [isUploading, setIsUploading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [phone, setPhone] = useState<string>();
   const [token, setToken] = useState<string | null>(null);
-
-  useEffect(() => {
-    (window as any).onTurnstileSuccess = (t: string) => {
-      console.log("Turnstile Token Captured:", t);
-      setToken(t);
-    };
-  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -31,11 +26,12 @@ export default function PatientForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    
     if (!token) {
         alert("Lütfen güvenlik doğrulamasını (Captcha) tamamlayın.");
-        setIsUploading(false);
         return;
     }
+    
     setIsUploading(true);
 
     try {
@@ -44,7 +40,6 @@ export default function PatientForm() {
       const email = formData.get("email") as string;
       const uploadedImages = [];
 
-      // 1. Upload to GCS
       for (const file of files) {
         const requestBody = { 
             filename: file.name, 
@@ -54,7 +49,8 @@ export default function PatientForm() {
             phone,
             token
           };
-        console.log("DEBUG: Sending request to /api/upload with body:", JSON.stringify(requestBody));
+        
+        console.log("DEBUG: Uploading...", requestBody);
 
         const res = await fetch("/api/upload", {
           method: "POST",
@@ -63,14 +59,10 @@ export default function PatientForm() {
 
         if (!res.ok) {
           const errorData = await res.json();
-          throw new Error(errorData.error || "Upload URL generation failed");
+          throw new Error(errorData.error || "Upload failed");
         }
 
         const { url, storagePath } = await res.json();
-
-        if (!url) {
-          throw new Error("Upload URL is missing from response");
-        }
 
         const uploadRes = await fetch(url, {
           method: "PUT",
@@ -79,24 +71,24 @@ export default function PatientForm() {
         });
 
         if (!uploadRes.ok) {
-          throw new Error("Failed to upload file to storage");
+          throw new Error("GCS Put Failed");
         }
 
         uploadedImages.push({ url: storagePath, storagePath }); 
       }
 
       // 2. Save to DB
-      // We append phone manually if needed, or pass it separately
       if (phone) formData.set("phone", phone);
       await submitPatientForm(formData, uploadedImages);
       
       setIsSuccess(true);
       setFiles([]);
+      setToken(null); // Başarılı işlem sonrası token'ı sıfırla
       (e.target as HTMLFormElement).reset();
 
     } catch (error) {
-      console.error("Upload error:", error);
-      alert("Something went wrong. Please try again.");
+      console.error("Form Error:", error);
+      alert("Bir hata oluştu. Lütfen tekrar deneyin.");
     } finally {
       setIsUploading(false);
     }
@@ -108,10 +100,10 @@ export default function PatientForm() {
         <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-green-100">
           <CheckCircle className="h-8 w-8 text-green-600" />
         </div>
-        <h3 className="mt-4 text-xl font-bold text-gray-900">Application Received!</h3>
-        <p className="mt-2 text-gray-600">Our medical team will review your photos and contact you via WhatsApp shortly.</p>
+        <h3 className="mt-4 text-xl font-bold text-gray-900">Başvurunuz Alındı!</h3>
+        <p className="mt-2 text-gray-600">Medikal ekibimiz fotoğraflarınızı inceleyip en kısa sürede WhatsApp üzerinden dönüş yapacaktır.</p>
         <button onClick={() => setIsSuccess(false)} className="mt-6 text-blue-600 font-medium hover:underline">
-          Submit Another Inquiry
+          new application
         </button>
       </div>
     );
@@ -119,29 +111,27 @@ export default function PatientForm() {
 
   return (
     <form onSubmit={handleSubmit} className="bg-white p-6 md:p-8 rounded-2xl shadow-2xl border border-gray-100">
-      <h3 className="text-2xl font-bold text-gray-800 mb-6">Free Dental Analysis</h3>
+      <h3 className="text-2xl font-bold text-gray-800 mb-6">free dental analysis</h3>
       
       <div className="space-y-4">
-        {/* Name & Email */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-            <input name="name" required className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="John Doe" />
+            <label className="block text-sm font-medium text-gray-700 mb-1">Name</label>
+            <input name="name" required className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Adınız Soyadınız" />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-            <input name="email" type="email" required className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="john@example.com" />
+            <label className="block text-sm font-medium text-gray-700 mb-1">E-Posta</label>
+            <input name="email" type="email" required className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="ornek@email.com" />
           </div>
         </div>
 
-        {/* Phone */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">Phone Number</label>
           <div className="phone-input-container">
             <PhoneInput
               international
               defaultCountry="GB"
-              countries={['FR', 'IT', 'SE', 'DK', 'IL', 'QA', 'AU', 'GB', 'DE', 'NL', 'SA', 'US', 'AE', 'RU', 'IE', 'CA', 'KW']}
+              countries={['TR', 'GB', 'DE', 'NL', 'FR', 'US', 'SA', 'KW', 'QA', 'AE']}
               value={phone}
               onChange={setPhone}
               required
@@ -150,15 +140,14 @@ export default function PatientForm() {
           </div>
         </div>
 
-        {/* Description */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">Your Request / Description</label>
-          <textarea name="description" rows={3} className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="Implants, Veneers, Smile Design..." />
+          <label className="block text-sm font-medium text-gray-700 mb-1">Your Request / Complaint</label>
+          <textarea name="description" rows={3} className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none" placeholder="İmplant, Gülüş Tasarımı vb..." />
         </div>
 
-        {/* File Upload */}
+        {/* Dosya Yükleme */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-2">Dental Photos (Optional)</label>
+          <label className="block text-sm font-medium text-gray-700 mb-2">Dental Photos (optional)</label>
           <div className="border-2 border-dashed border-gray-300 rounded-xl p-6 text-center hover:bg-gray-50 transition-colors relative">
             <input 
               type="file" 
@@ -168,11 +157,11 @@ export default function PatientForm() {
               className="absolute inset-0 w-full h-full opacity-0 cursor-pointer"
             />
             <Upload className="mx-auto h-10 w-10 text-gray-400 mb-2" />
-            <p className="text-sm text-gray-600">Drag & drop photos here or <span className="text-blue-600 font-semibold">click to upload</span></p>
+            <p className="text-sm text-gray-600">upload photos here  <span className="text-blue-600 font-semibold">click to upload</span></p>
             <p className="text-xs text-gray-400 mt-1">JPEG, PNG (Max 10MB)</p>
           </div>
 
-          {/* Selected Files List */}
+          {/* Seçilen Dosyalar */}
           {files.length > 0 && (
             <ul className="mt-3 space-y-2">
               {files.map((file, i) => (
@@ -188,26 +177,29 @@ export default function PatientForm() {
         </div>
 
         {/* Turnstile Widget */}
-        <div className="flex justify-center">
-            <div 
-                className="cf-turnstile" 
-                data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAACAYD-m9r_3S2l3"} 
-                data-callback="onTurnstileSuccess"
-            ></div>
-            <input type="hidden" name="cf-turnstile-response" value={token || ""} />
+        <div className="flex justify-center my-4">
+            <Turnstile 
+                siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAACAYD-m9r_3S2l3"}
+                onSuccess={(token) => {
+                    console.log("Token alındı:", token);
+                    setToken(token);
+                }}
+                onError={() => setToken(null)}
+                onExpire={() => setToken(null)}
+            />
         </div>
 
         <button 
           type="submit" 
           disabled={isUploading || !token}
-          className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 disabled:opacity-70"
+          className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 disabled:opacity-70 disabled:cursor-not-allowed"
         >
           {isUploading ? (
             <>
-              <Loader2 className="animate-spin" /> Processing...
+              <Loader2 className="animate-spin" /> uploading...
             </>
           ) : (
-            "Submit free Dental Analysis"
+            "Ücretsiz Analiz Gönder"
           )}
         </button>
       </div>
