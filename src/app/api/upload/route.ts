@@ -76,7 +76,9 @@ export async function POST(request: NextRequest) {
 
         const body = await request.json();
         const { filename, fileType, name, email, phone, token } = body;
+
         if (!token) {
+            console.error("DEBUG: Token missing in payload. Body:", JSON.stringify(body));
             return NextResponse.json({ error: "Güvenlik doğrulaması eksik (Captcha)." }, { status: 400 });
         }
 

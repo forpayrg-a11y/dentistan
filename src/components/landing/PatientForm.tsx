@@ -13,8 +13,9 @@ export default function PatientForm() {
   const [token, setToken] = useState<string | null>(null);
 
   useEffect(() => {
-    (window as any).onTurnstileSuccess = (token: string) => {
-      setToken(token);
+    (window as any).onTurnstileSuccess = (t: string) => {
+      console.log("Turnstile Token Captured:", t);
+      setToken(t);
     };
   }, []);
 
@@ -30,6 +31,11 @@ export default function PatientForm() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!token) {
+        alert("Lütfen güvenlik doğrulamasını (Captcha) tamamlayın.");
+        setIsUploading(false);
+        return;
+    }
     setIsUploading(true);
 
     try {
