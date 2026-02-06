@@ -46,16 +46,19 @@ export default function PatientForm() {
 
       // 1. Upload to GCS
       for (const file of files) {
-        const res = await fetch("/api/upload", {
-          method: "POST",
-          body: JSON.stringify({ 
+        const requestBody = { 
             filename: file.name, 
             fileType: file.type,
             name,
             email,
             phone,
             token
-          }),
+          };
+        console.log("DEBUG: Sending request to /api/upload with body:", JSON.stringify(requestBody));
+
+        const res = await fetch("/api/upload", {
+          method: "POST",
+          body: JSON.stringify(requestBody),
         });
 
         if (!res.ok) {
@@ -191,6 +194,7 @@ export default function PatientForm() {
                 data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAACAYD-m9r_3S2l3"} 
                 data-callback="onTurnstileSuccess"
             ></div>
+            <input type="hidden" name="cf-turnstile-response" value={token || ""} />
         </div>
 
         <button 
