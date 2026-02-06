@@ -1,7 +1,7 @@
 version: '3'
 services:
   dentistan:
-    image: forpayrg/dentistan:latest
+    image: mrgurpinar/dentistan:latest
     container_name: dentistan_app
     restart: always
     ports:
