@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Upload, X, CheckCircle, Loader2 } from "lucide-react";
 import { submitPatientForm } from "@/app/actions"; 
 import PhoneInput from 'react-phone-number-input';
@@ -10,6 +10,13 @@ export default function PatientForm() {
   const [isUploading, setIsUploading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [phone, setPhone] = useState<string>();
+  const [token, setToken] = useState<string | null>(null);
+
+  useEffect(() => {
+    (window as any).onTurnstileSuccess = (token: string) => {
+      setToken(token);
+    };
+  }, []);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -40,7 +47,8 @@ export default function PatientForm() {
             fileType: file.type,
             name,
             email,
-            phone
+            phone,
+            token
           }),
         });
 
@@ -170,9 +178,18 @@ export default function PatientForm() {
           )}
         </div>
 
+        {/* Turnstile Widget */}
+        <div className="flex justify-center">
+            <div 
+                className="cf-turnstile" 
+                data-sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || "0x4AAAAAAACAYD-m9r_3S2l3"} 
+                data-callback="onTurnstileSuccess"
+            ></div>
+        </div>
+
         <button 
           type="submit" 
-          disabled={isUploading}
+          disabled={isUploading || !token}
           className="w-full bg-blue-600 text-white py-3 rounded-lg font-bold hover:bg-blue-700 transition-all flex items-center justify-center gap-2 disabled:opacity-70"
         >
           {isUploading ? (
