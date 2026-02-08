@@ -23,7 +23,7 @@ RUN npm run build
 # 3. Aşama: Çalıştırma (Runner)
 FROM node:20-alpine AS runner
 WORKDIR /app
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 # Güvenlik için root olmayan bir kullanıcı kullanalım
 RUN addgroup --system --gid 1001 nodejs
