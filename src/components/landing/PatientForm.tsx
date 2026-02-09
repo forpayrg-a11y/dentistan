@@ -247,7 +247,7 @@ export default function PatientForm() {
           <Turnstile
             siteKey={
               process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY ||
-              "0x4AAAAAAACAYD-m9r_3S2l3"
+              "0x4AAAAAACZVD1pGrFT7GDad"
             }
             onSuccess={(token) => {
               console.log("Token alındı:", token);

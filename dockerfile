@@ -17,6 +17,7 @@ ENV GCS_BUCKET_NAME="build_asamasinda_gecici_deger"
 ENV GCS_PROJECT_ID="build_asamasinda_gecici_deger"
 ENV GCS_CLIENT_EMAIL="build_asamasinda_gecici_deger"
 ENV GCS_PRIVATE_KEY="build_asamasinda_gecici_deger"
+ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY="0x4AAAAAACZVD1pGrFT7GDad"
 
 RUN npm run build
 
