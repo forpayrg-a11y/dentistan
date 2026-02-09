@@ -1,7 +1,7 @@
 version: '3'
 services:
   dentistan:
-    image: mrgurpinar/dentistan:latest
+    build: .
     container_name: dentistan_app
     restart: always
     ports:
@@ -13,3 +13,4 @@ services:
       - GCS_CLIENT_EMAIL=${GCS_CLIENT_EMAIL}
       - GCS_PRIVATE_KEY=${GCS_PRIVATE_KEY}
       - TURNSTILE_SECRET_KEY=${TURNSTILE_SECRET_KEY}
+      - NEXT_PUBLIC_TURNSTILE_SITE_KEY=${NEXT_PUBLIC_TURNSTILE_SITE_KEY}
