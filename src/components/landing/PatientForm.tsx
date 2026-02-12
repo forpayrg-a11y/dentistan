@@ -28,7 +28,7 @@ export default function PatientForm() {
     e.preventDefault();
 
     if (!token) {
-      alert("Lütfen güvenlik doğrulamasını (Captcha) tamamlayın.");
+      alert("please complete the security verification (Captcha)");
       return;
     }
 
@@ -105,11 +105,10 @@ export default function PatientForm() {
           <CheckCircle className="h-8 w-8 text-green-600" />
         </div>
         <h3 className="mt-4 text-xl font-bold text-gray-900">
-          Başvurunuz Alındı!
+          Your application has been received!
         </h3>
         <p className="mt-2 text-gray-600">
-          Medikal ekibimiz fotoğraflarınızı inceleyip en kısa sürede WhatsApp
-          üzerinden dönüş yapacaktır.
+          Our medical team will review your photos and get back to you on WhatsApp as soon as possible.
         </p>
         <button
           onClick={() => setIsSuccess(false)}
@@ -127,32 +126,32 @@ export default function PatientForm() {
       className="bg-white p-6 md:p-8 rounded-2xl shadow-2xl border border-gray-100"
     >
       <h3 className="text-2xl font-bold text-gray-800 mb-6">
-        free dental analysis
+        Free Dental Analysis
       </h3>
 
       <div className="space-y-4">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Name
+              Name Surname
             </label>
             <input
               name="name"
               required
               className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="Adınız Soyadınız"
+              placeholder="name surname"
             />
           </div>
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              E-Posta
+              E-Mail
             </label>
             <input
               name="email"
               type="email"
               required
               className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-              placeholder="ornek@email.com"
+              placeholder="please enter your email"
             />
           </div>
         </div>
@@ -176,6 +175,7 @@ export default function PatientForm() {
                 "KW",
                 "QA",
                 "AE",
+                "GB",
               ]}
               value={phone}
               onChange={setPhone}
@@ -193,11 +193,10 @@ export default function PatientForm() {
             name="description"
             rows={3}
             className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
-            placeholder="İmplant, Gülüş Tasarımı vb..."
+            placeholder="implant, smile design etc..."
           />
         </div>
 
-        {/* Dosya Yükleme */}
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-2">
             Dental Photos (optional)
@@ -220,7 +219,6 @@ export default function PatientForm() {
             <p className="text-xs text-gray-400 mt-1">JPEG, PNG (Max 10MB)</p>
           </div>
 
-          {/* Seçilen Dosyalar */}
           {files.length > 0 && (
             <ul className="mt-3 space-y-2">
               {files.map((file, i) => (
@@ -242,7 +240,6 @@ export default function PatientForm() {
           )}
         </div>
 
-        {/* Turnstile Widget */}
         <div className="flex justify-center my-4">
           <Turnstile
             siteKey={
@@ -250,7 +247,6 @@ export default function PatientForm() {
               "0x4AAAAAACZVD1pGrFT7GDad"
             }
             onSuccess={(token) => {
-              console.log("Token alındı:", token);
               setToken(token);
             }}
             onError={() => setToken(null)}
@@ -268,7 +264,7 @@ export default function PatientForm() {
               <Loader2 className="animate-spin" /> uploading...
             </>
           ) : (
-            "Ücretsiz Analiz Gönder"
+            "Send Free Analysis"
           )}
         </button>
       </div>
