@@ -1,8 +1,9 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  output: process.env.NETLIFY ? undefined : "standalone",
+  output: "standalone",
   /* config options here */
+  deploymentId: `deploy-${Date.now().toString()}`,
 };
 
 export default nextConfig;

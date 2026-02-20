@@ -3,7 +3,7 @@ import React from "react";
 export default function JsonLd() {
   const organizationData = {
     "@context": "https://schema.org",
-    "@type": "Dentist",
+    "@type": "DentTourist",
     "name": "DentTourist",
     "url": "https://dentourist.com",
     "logo": "https://dentourist.com/logo.png",
