@@ -18,6 +18,7 @@ ENV GCS_PROJECT_ID="build_asamasinda_gecici_deger"
 ENV GCS_CLIENT_EMAIL="build_asamasinda_gecici_deger"
 ENV GCS_PRIVATE_KEY="build_asamasinda_gecici_deger"
 ENV NEXT_PUBLIC_TURNSTILE_SITE_KEY="0x4AAAAAACZVD1pGrFT7GDad"
+ENV NEXT_SERVER_ACTIONS_ENCRYPTION_KEY="Q2MeQeVyjhs1XGwau6KktprVpqqnQOa6zSIP2o4iNss="
 
 RUN npm run build
 
